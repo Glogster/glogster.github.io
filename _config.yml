@@ -1,3 +1,17 @@
 name: Glogster
 markdown: kramdown
 highlighter: rouge 
+
+authors:
+  roman_komkov:
+    name: Roman Komkov
+    email: roman@glogster.com
+    github_id: 4447814
+  honza_brecka:
+    name: Honza Břečka
+    email: jan.brecka@glogster.com
+    github_id: 1021827
+  filip_subr:
+    name: Filip Šubr
+    email: filip.subr@glogster.com
+    github_id: 1843890

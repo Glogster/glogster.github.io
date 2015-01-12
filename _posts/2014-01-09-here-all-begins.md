@@ -1,7 +1,8 @@
 ---
 layout: post
-title: It all begins here...
+title:  It all begins here...
 date:   2015-01-09 12:00:00
+author: roman_komkov
 categories: posts
 ---
 
