@@ -1,6 +1,6 @@
 name: Glogster
 markdown: kramdown
-highlighter: rouge 
+highlighter: pygments 
 
 authors:
   roman_komkov:
