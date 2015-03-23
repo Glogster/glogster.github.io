@@ -142,6 +142,7 @@ a:hover {
   margin-bottom: 0.35em;
   font-size: 3em;
   line-height: 40px;
+  max-width: 725px;
 /*  text-transform: uppercase;*/
 }
 
@@ -149,6 +150,8 @@ a:hover {
   line-height: 24px;
   max-width: 725px;
   clear: both;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-size: 17px;
 }
 
 .post h2 {
@@ -170,12 +173,10 @@ a:hover {
 .post pre {
   border: 1px solid #ddd;
   background-color: #eef;
-  padding: 0 .4em;
+  padding: .2em .4em;
 }
 
 .post p {
-  font-family: 'Source Sans Pro', Arial, sans-serif;
-  font-size: 17px;
   margin-bottom: 1.45em;
   text-align: justify;
 }
@@ -188,7 +189,7 @@ a:hover {
 .post code {
   border: 1px solid #ddd;
   background-color: #eef;
-  padding: 0 .2em;
+  padding: .2em .4em;
 }
 
 .post pre code {
