@@ -26,7 +26,9 @@ cqlsh utility in 1.2 doesn't support "-e" option anymore, so we may only execute
 ```
 echo "DESC KEYSPACE MyKeySpace;" > cqlcmdf
 ```
+
 and then pass it to cqlsh:
+
 ```
 cqlsh -f cqlcmdf | tail -n +2 > my_schema.cdl
 ```
@@ -40,21 +42,23 @@ cqlsh -f my_schema.cdl
 ```
 
 Be careful, if your original tables were created with cassandra-cli (old Cassandra versions) you'll need to migrate your schema with cassandra-cli too.
+
 ```
 echo -e "use MyKeySpace;\r\n show schema;\n" | cassandra-cli -h localhost > mySchema.cdl
 ```
+
 and then
 
 ```
 cassandra-cli -h localhost -f mySchema.cdl
 ```
 
-
 Next, we need to create a snapshot of the target keyspace (make sure you have JNA enabled on your node):
 
 ```
 nodetool snapshot MyKeySpace snap_1
 ```
+
 where *MyKeySpace* is the name of the target keyspace and *snap_1* is the snapshot name. 
 
 Once this is complete, the snapshot will populate the *snapshot* dir of every collumnfamily dir.
@@ -63,8 +67,6 @@ In our particular case, our RF on old cluster was equal to the total number of n
 
 ```
 cd <cassandra_data_dir>
-```
-```
 for i in `ls MyKeySpace/`;do nodetool refresh MyKeySpace $i; done
 ```
 
@@ -73,4 +75,5 @@ After the data is successfully loaded (this may take a significant amount of tim
 ```
 nodetool cleanup
 ```
+
 This will also take some time. Finally, here we have a working cluster with migrated data.
