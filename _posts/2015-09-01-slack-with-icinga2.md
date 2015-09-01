@@ -18,20 +18,26 @@ it gives a better integration level.  In Slack, the documentation only describes
 So, to setup Nagios integration follow these steps:
 
 * For CentOS or RHEL system we first need to install some requirements:
+
 ```
 yum install perl-libwww-perl perl-Crypt-SSLeay perl-LWP-Protocol-https
 ```
+
 * Download this plugin:
+
 ```
 wget https://raw.github.com/tinyspeck/services-examples/master/nagios.pl -O /etc/icinga2/scripts/slack_nagios.pl
 ```
+
 ```
 chmod 755 /etc/icinga2/scripts/slack_nagios.pl 
 ```
+
 * Edit `slack_nagios.pl` and add proper values to the `$opt_domain` and `$opt_token` variables.
 * Edit `/etc/icinga2/conf.d/commands.conf`:
 
 ```
+
 object NotificationCommand "slack-host-notification" {
   import "plugin-notification-command"
 
