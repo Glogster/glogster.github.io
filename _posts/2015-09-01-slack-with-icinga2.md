@@ -74,6 +74,7 @@ Here you'll need to define an array with those fields.
 And surprisingly, you can't define an array in the `NotificationCommand` definition, so something like this
 ```"-field" = ["a", "b, "c"]```
 will give you nothing but errors. 
+
 However, you can define an array in another object definition connected to the `NotificationCommand`. 
 We'll define this variables in User object.
 
