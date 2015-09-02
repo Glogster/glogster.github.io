@@ -25,13 +25,10 @@ yum install perl-libwww-perl perl-Crypt-SSLeay perl-LWP-Protocol-https
 
 * Download this plugin:
 
-```
+{% highlight text %}
 wget https://raw.github.com/tinyspeck/services-examples/master/nagios.pl -O /etc/icinga2/scripts/slack_nagios.pl
-```
-
-```
 chmod 755 /etc/icinga2/scripts/slack_nagios.pl 
-```
+{% endhighlight %}
 
 * Edit `slack_nagios.pl` and add proper values to the `$opt_domain` and `$opt_token` variables.
 * Edit `/etc/icinga2/conf.d/commands.conf`:
@@ -69,9 +66,11 @@ to the channel.
 If you define multiple entries for `-field` key, Icinga2 will only use the last
 one, suppressing the others.
 Here you'll need to define an array with those fields.
-```
+
+{% highlight text %}
 [2015-08-31 22:36:50 +0200] notice/Process: PID 19582 ('/etc/icinga2/scripts/slack_nagios.pl' '-field' 'NOTIFICATIONTYPE=RECOVERY') terminated with exit code 0 
-```
+{% endhighlight %}
+
 And surprisingly, you can't define an array in the `NotificationCommand` definition, so something like this
 ```"-field" = ["a", "b, "c"]```
 will give you nothing but errors. 
@@ -80,19 +79,20 @@ We'll define this variables in User object.
 
 * Edit `/etc/icinga2/conf.d/users.conf` and add this lines:
 
-```
+{% highlight text %}
 object User "slack" {
   display_name = "Slack"
   import "generic-user"
   vars.host_fields = ["slack_channel=#ops", "HOSTALIAS=$host.display_name$", "HOSTSTATE=$host.state$", "HOSTOUTPUT=$host.output$", "NOTIFICATIONTYPE=$notification.type$"]
   vars.service_fields = ["slack_channel=#ops", "HOSTALIAS=$host.display_name$", "SERVICEDESC=$service.name$", "SERVICESTATE=$service.state$", "SERVICEOUTPUT=$service.output$", "NOTIFICATIONTYPE=$notification.type$"]
 }
-```
+{% endhighlight %}
+
 Replace `#ops` with the name of your channel. 
 
 * Add following lines to `/etc/icinga2/conf.d/notifications.conf`:
 
-```
+{% highlight text %}
 apply Notification "slack-host" to Host {
   import "slack-host-notification"
 
@@ -110,10 +110,11 @@ apply Notification "slack-service" to Service {
   assign where service.vars.sla == "24x7"
 
 }
-```
+{% endhighlight %}
+
 and this to `/etc/icinga2/conf.d/templates.conf`:
 
-```
+{% highlight text %}
 template Notification "slack-host-notification" {
   command = "slack-host-notification"
 
@@ -137,13 +138,14 @@ template Notification "slack-service-notification" {
   period = "24x7"
 
 }
-```
-* Validate your configs with ```icinga2 daemon -C``` and restart/reload the service ```systemctl reload icinga2```
+{% endhighlight %}
+
+* Validate your configs with `icinga2 daemon -C` and restart/reload the service `systemctl reload icinga2`
 * Check that your notifications are working.
 
-```
+{% highlight text %}
 [2015-09-01 02:31:11 +0200] notice/Process: PID 12654 ('/etc/icinga2/scripts/slack_nagios.pl' '-field' 'slack_channel=#ops' '-field' 'HOSTALIAS=edu01' '-field' 'SERVICEDESC=load' '-field' 'SERVICESTATE=OK' '-field' 'SERVICEOUTPUT=OK - load average: 4.72, 5.71, 7.90' '-field' 'NOTIFICATIONTYPE=RECOVERY') terminated with exit code 0
-```
+{% endhighlight %}
 
 ![](/images/bot_working.png?raw=true "Correct bot output")
 
