@@ -36,8 +36,7 @@ chmod 755 /etc/icinga2/scripts/slack_nagios.pl
 * Edit `slack_nagios.pl` and add proper values to the `$opt_domain` and `$opt_token` variables.
 * Edit `/etc/icinga2/conf.d/commands.conf`:
 
-```
-
+{% highlight text %}
 object NotificationCommand "slack-host-notification" {
   import "plugin-notification-command"
 
@@ -58,7 +57,7 @@ object NotificationCommand "slack-service-notification" {
   
   }
 }
-```
+{% endhighlight %}
 
 If you pass env variables with this command, Icinga2 will not propagate it to
 the script, so you must pass everything with `-field` key. If you only pass the
